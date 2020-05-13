@@ -26,58 +26,19 @@ def collection_stats(collection_nombre):
 
 
 def crear_carrera(json):
-    return str('Falta por implementar')
+    return str(db.carreras.insert_one(json))
 
 
 def consultar_carrera_por_id(carrera_id):
-    return str('Falta por implementar')
+    # dumps convierte bson a json
+    return dumps(db.carreras.find_one({'_id': ObjectId(carrera_id)}))
 
 
 def actualizar_carrera(carrera):
     # Esta funcion solamente actualiza nombre y descripcion de la carrera
-    return str('Falta por implementar')
+    return str(db.carreras.update_one({'_id': ObjectId(carrera['_id'])}, {'$set': {'nombre': carrera['nombre'], 'descripcion': carrera['descripcion']}}).modified_count)
 
 
 def borrar_carrera_por_id(carrera_id):
-    return str('Falta por implementar')
-
-
-# Clase de operadores
-def consultar_carreras(skip, limit):
-    return dumps(db.carreras.find({}).skip(int(skip)).limit(int(limit)))
-
-
-def agregar_curso(json):
-    return str('Falta por implementar')
-
-
-def borrar_curso_de_carrera(json):
-    return str('Falta por implementar')
-
-# -----------------Cursos-------------------------
-
-
-def crear_curso(json):
-    return str('Falta por implementar')
-
-
-def consultar_curso_por_id(id_curso):
-    return str('Falta por implementar')
-
-
-def actualizar_curso(curso):
-    # Esta funcion solamente actualiza nombre, descripcion y clases del curso
-    return str('Falta por implementar')
-
-
-def borrar_curso_por_id(curso_id):
-    return str('Falta por implementar')
-
-
-def consultar_curso_por_id_proyeccion(id_curso, proyeccion=None):
-    return str('Falta por implementar')
-
-
-def consultar_curso_por_nombre(nombre):
-    return str('Falta por implementar')
+    return str(db.carreras.delete_one({'_id': ObjectId(carrera_id)}))
 
